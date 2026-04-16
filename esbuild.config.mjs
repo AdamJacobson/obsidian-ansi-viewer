@@ -18,7 +18,8 @@ const context = await esbuild.context({
 	entryPoints: ["src/main.ts"],
 	bundle: true,
 	external: [
-		"obsidian"],
+		"obsidian"
+	],
 	format: "cjs",
 	target: "es2018",
 	logLevel: "info",
