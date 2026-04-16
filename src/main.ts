@@ -102,10 +102,10 @@ export default class AnsiViewerPlugin extends Plugin {
 		const renderAnsiCodeBlock = (source: string, el: HTMLElement) => {
 			const ansiUp = new AnsiUp();
 			const html = ansiUp.ansi_to_html(source);
-			console.log('HTML:', html);
 			const parser = new DOMParser();
 			const doc = parser.parseFromString(html, 'text/html');
-			const target = el.createEl('code', {cls: 'language-ansi'});
+			const target = el.createEl('code', { cls: 'rendered-ansi-block' });
+			
 			const fragment = document.createDocumentFragment();
 
 			while (doc.body.firstChild) {
@@ -116,13 +116,22 @@ export default class AnsiViewerPlugin extends Plugin {
 		};
 
 		const renderAnsiCodeBlockAlt = (source: string, el: HTMLElement) => {
-			const rows = source.split('\n').filter((row) => row.length > 0);
+			const rows = source.split('\n');
+			const ansiUp = new AnsiUp();
 
-			const wrapper = el.createEl('code', { cls: 'something' });
+			const target = el.createEl('pre', { cls: 'br-language-ansi' });
+
+			const innerHTML = []
 
 			for (let i = 0; i < rows.length; i++) {
-				wrapper.createEl('span', { text: rows[i], cls: 'red' });
+				const row = rows[i] || "";
+				const html = ansiUp.ansi_to_html(row);
+
+				innerHTML.push(html);
 			}
+
+			// eslint-disable-next-line @microsoft/sdl/no-inner-html
+			target.innerHTML = innerHTML.join('\n');
 		};
 
 		// this.registerMarkdownCodeBlockProcessor('ansi', renderAnsiCodeBlock);
