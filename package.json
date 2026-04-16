@@ -1,6 +1,6 @@
 {
 	"name": "ansi-viewer",
-	"version": "1.0.0",
+	"version": "0.0.1",
 	"description": "View ANSI formatted text in Obsidian.",
 	"main": "main.js",
 	"type": "module",
@@ -10,7 +10,15 @@
 		"version": "node version-bump.mjs && git add manifest.json versions.json",
 		"lint": "eslint ."
 	},
-	"keywords": [],
+	"keywords": [
+		"obsidian",
+		"ansi",
+		"viewer",
+		"terminal",
+		"console",
+		"output",
+		"color"
+	],
 	"license": "0-BSD",
 	"devDependencies": {
 		"@eslint/js": "9.30.1",
