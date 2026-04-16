@@ -1,0 +1,10 @@
+{
+	"id": "ansi-viewer",
+	"name": "ANSI Viewer",
+	"version": "0.0.1",
+	"minAppVersion": "0.15.0",
+	"description": "View ANSI formatted text in Obsidian.",
+	"author": "Adam Jacobson",
+	"authorUrl": "https://github.com/adamjacobson",
+	"isDesktopOnly": false
+}
