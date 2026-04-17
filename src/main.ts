@@ -15,6 +15,8 @@ export default class AnsiViewerPlugin extends Plugin {
 	ansiUp = new AnsiUp();
 
 	async onload() {
+		window.ansiUp = this.ansiUp;
+
 		await this.loadSettings();
 
 		const ansiEscapePreparser = new AnsiPreparser();

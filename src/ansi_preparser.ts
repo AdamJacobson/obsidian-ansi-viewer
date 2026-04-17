@@ -13,6 +13,29 @@ export default class AnsiPreparser {
 		for (const seq of ESCAPE_SEQUENCE_LITERALS) {
 			escaped = escaped.split(seq).join(ESC);
 		}
-		return escaped;
+		const corrected = this.correctForIterm2Formatting(escaped);
+    return this.replaceColonsInCsi(corrected);
 	}
+
+	/**
+	 * Within each substring from ESC (`\x1b`) through the next `m`, remove iTerm2's extra `1` in
+	 * truecolor SGR: `38…2…1…` → `38…2…` and `48…2…1…` → `48…2…` (separators may be `:` or `;`).
+	 */
+	correctForIterm2Formatting(ansi: string): string {
+		const stripSpuriousOne = (inner: string) =>
+			inner
+				.replace(/38:2:1:/g, '38:2:')
+				.replace(/48:2:1:/g, '48:2:');
+
+    // Start with the escape character, literal bracket and anything until the next 'm' character.
+		const colorSequence = new RegExp(`${ESC}([^${ESC}m]*?)m`, 'g');
+		return ansi.replace(colorSequence, (_full, inner: string) => ESC + stripSpuriousOne(inner) + 'm');
+	}
+
+  replaceColonsInCsi(ansi: string): string {
+    const replaceColon = (inner: string) => inner.replace(/:/g, ';');
+
+    const colorSequence = new RegExp(`${ESC}([^${ESC}m]*?)m`, 'g');
+    return ansi.replace(colorSequence, (_full, inner: string) => ESC + replaceColon(inner) + 'm');
+  }
 }
