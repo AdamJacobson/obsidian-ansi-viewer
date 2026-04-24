@@ -20,7 +20,8 @@ export default class AnsiViewerPlugin extends Plugin {
 			const ansiUp = new AnsiUp();
 
 			const rows = source.split('\n');
-			const target = el.createEl('pre', { cls: 'rendered-ansi-block' });
+			const cls = isDarkBlock(el, ctx) ? 'rendered-ansi-block dark' : 'rendered-ansi-block';
+			const target = el.createEl('pre', { cls });
 
 			const innerHTML = rows.map(row => {
 				const preparsed = ansiEscapePreparser.parse(row);
@@ -31,6 +32,26 @@ export default class AnsiViewerPlugin extends Plugin {
 			// eslint-disable-next-line @microsoft/sdl/no-inner-html
 			target.innerHTML = innerHTML
 		};
+
+		const isDarkBlock = (el: HTMLElement, ctx: MarkdownPostProcessorContext) => {
+			return (codeBlockArgs(el, ctx)?.includes('dark') ?? false);
+		}
+
+		const codeBlockArgs = (el: HTMLElement, ctx: MarkdownPostProcessorContext) => {
+			const sectionInfo = ctx.getSectionInfo(el);
+			if (!sectionInfo) return null;
+
+			const text = sectionInfo.text;
+			if (!text) return null;
+
+			const line = text.split("\n")[sectionInfo.lineStart];
+			if (!line) return null;
+
+			const match = line.match(/```ansi([^\n]*)/);
+			if (!match || match.length < 2) return null;
+
+			return match[1]!.trim().split(" ");
+		}
 
 		this.registerMarkdownCodeBlockProcessor('ansi', renderAnsiCodeBlock);
 

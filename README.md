@@ -12,27 +12,57 @@ If you are using iTerm2, highlight the desired text and use the option **Copy wi
 
 <span style="color: red">**INSTALL AT YOUR OWN RISK. ENSURE THAT YOUR NOTES ARE BACKED UP BEFORE INSTALLING.**</span>
 
+## Features
+
+- Render ANSI formatting codes just like a terminal does!
+- Support for _almost_ all codes
+- Dark mode
+- Support iTerm2's weird control sequences (configurable)
+- Support for multiline formatting (configurable)
+
 ## Usage
 
 Simply create a code block with the word "ansi" and paste in your code.
 
-_NOTE: Escape sequences may not be rendered in Obsidian._
+_NOTE: Actual escape sequences may not be rendered in Obsidian. This plugin supports the use of string literals which evaluate to the escape sequence: `\x1b`, `\e`, `\033` etc_
 
 ~~~
 ```ansi
-[0;33mYELLOW[0m [0;31mRED[0m[0m
-[0;32mGREEN[0m [0;35mMAGENTA[0m
+\x1b[0;33mYELLOW\x1b[0m \x1b[0;31mRED\x1b[0m\x1b[0m
+\x1b[0;32mGREEN\x1b[0m \x1b[0;35mMAGENTA\x1b[0m
 
 Text with no formatting.
 
-[0;32mLorem ipsum [0;33mdolor sit amet, [0;34mconsectetur adipiscing elit...[0m
+\x1b[0;32mLorem ipsum \x1b[0;33mdolor sit amet, \x1b[0;34mconsectetur adipiscing elit...\x1b[0m
 ```
 ~~~
 
-![basic examples](images/obsidian-ansi-viewer-screenshot-1.png)
+![basic examples](images/basic-example-light.png)
+
+There is also a dark mode which can be enabled by adding the keyword `dark` after `ansi`:
+
+~~~
+```ansi dark
+\x1b[0;33mYELLOW\x1b[0m \x1b[0;31mRED\x1b[0m\x1b[0m
+\x1b[0;32mGREEN\x1b[0m \x1b[0;35mMAGENTA\x1b[0m
+
+Text with no formatting.
+
+\x1b[0;32mLorem ipsum \x1b[0;33mdolor sit amet, \x1b[0;34mconsectetur adipiscing elit...\x1b[0m
+```
+~~~
+
+![basic examples](images/basic-example-dark.png)
 
 ## Important Caveats
 
-- Currently, ANSI code blocks can only recognize the escape sequence which is not usually visible in terminal outputs. The above example has escape sequences which cannot be displayed by Markdown. Eventually, support will be added for character literal escape sequences like "\e" and "\033".
+- iTerm2 has an unusual way of formatting certain sequences. This plugin can account for them but those codes may not behave the same if pasted into a different terminal. You can disable this behavior by toggling the option "Correct iTerm2 formatting" (enabled by default).
 
-- iTerm2 has an unusual way of formatting certain sequences which this plugin cannot (yet) read. When iTerm2 renders text using RGB color sequences, the result cannot be parsed. Basic 8-bit colors (which are more common) work just fine.
+- Strikethrough text and blinking text are not supported. This appears to be a limitation of ansi_up, a dependency this plugin uses. I intend to submit a pull request to fix this.
+
+## Planned Features
+
+- Full support for Obsidian dark mode
+- Configureable default dark/light mode
+- Configurable terminal colors
+- Support for strikethrough and blinking text
