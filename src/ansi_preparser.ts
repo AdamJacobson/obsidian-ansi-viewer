@@ -1,6 +1,6 @@
 import type { AnsiViewerSettings } from "./settings";
 
-// ansi_up can only handle the real escape sequence. Replace literal escapes with the real escape sequence.
+// ansi_up can only handle the real escape sequence. Replace string literal escapes with the real escape sequence.
 const ESC = '\x1B';
 const ESCAPE_SEQUENCE_LITERALS: string[] = ['\\x1b', '\\x1B', '\\033', '\\e', '\\u001b', '\\u001B'];
 
