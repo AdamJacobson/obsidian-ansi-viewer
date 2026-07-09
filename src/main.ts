@@ -14,7 +14,7 @@ export default class AnsiViewerPlugin extends Plugin {
 
 	async onload() {
 		await this.loadSettings();
-		
+
 		const renderAnsiCodeBlock = (source: string, el: HTMLElement, ctx: MarkdownPostProcessorContext) => {
 			const ansiEscapePreparser = new AnsiPreparser(() => this.settings);
 			const ansiUp = new AnsiUp();

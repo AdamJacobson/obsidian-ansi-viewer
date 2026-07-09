@@ -1,6 +1,5 @@
 import type { AnsiViewerSettings } from "./settings";
 
-// ansi_up can only handle the real escape sequence. Replace string literal escapes with the real escape sequence.
 const ESC = '\x1B';
 const ESCAPE_SEQUENCE_LITERALS: string[] = ['\\x1b', '\\x1B', '\\033', '\\e', '\\u001b', '\\u001B'];
 
@@ -8,10 +7,12 @@ export default class AnsiPreparser {
 	constructor(private readonly getSettings: () => AnsiViewerSettings) {}
 
 	parse(ansi: string): string {
-    if (ansi.length === 0) {
-      return ansi;
-    }
+		if (ansi.length === 0) {
+			return ansi;
+		}
 
+		// ansi_up can only handle the real escape sequence. Replace string literal escapes with the real thing.
+		// TODO: Make this configurable or optional per code block
 		let preparsed = this.replaceEscapeSequenceLiterals(ansi);
 
 		if (this.getSettings().newLineFormattingReset) {
