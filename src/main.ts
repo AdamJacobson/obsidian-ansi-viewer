@@ -1,4 +1,4 @@
-import { MarkdownPostProcessorContext, Plugin } from 'obsidian';
+import { MarkdownPostProcessorContext, Plugin, sanitizeHTMLToDom } from 'obsidian';
 import { DEFAULT_SETTINGS, AnsiViewerSettings, AnsiViewerSettingTab } from "./settings";
 import { AnsiUp } from 'ansi_up';
 import AnsiPreparser from "./ansi_preparser";
@@ -29,8 +29,7 @@ export default class AnsiViewerPlugin extends Plugin {
 				return html;
 			}).join('\n');
 
-			// eslint-disable-next-line @microsoft/sdl/no-inner-html
-			target.innerHTML = innerHTML
+			target.appendChild(sanitizeHTMLToDom(innerHTML))
 		};
 
 		const isDarkBlock = (el: HTMLElement, ctx: MarkdownPostProcessorContext) => {
