@@ -8,10 +8,6 @@ This allows for color coded text taken directly from terminal outputs. I created
 
 If you are using iTerm2, highlight the desired text and use the option **Copy with Control Sequences**. Paste the result in the code block.
 
-<span style="color: red">**THIS PROJECT IS A WORK IN PROGRESS AND IS NOT FULLY TESTED!**</span>
-
-<span style="color: red">**INSTALL AT YOUR OWN RISK. ENSURE THAT YOUR NOTES ARE BACKED UP BEFORE INSTALLING.**</span>
-
 ## Features
 
 - Render ANSI formatting codes just like a terminal does!
