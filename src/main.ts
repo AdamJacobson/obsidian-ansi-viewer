@@ -20,8 +20,16 @@ export default class AnsiViewerPlugin extends Plugin {
 			const ansiUp = new AnsiUp();
 
 			const rows = source.split('\n');
-			const cls = isDarkBlock(el, ctx) ? 'rendered-ansi-block dark' : 'rendered-ansi-block';
-			const target = el.createEl('pre', { cls });
+			const target = el.createEl('pre', { cls: 'rendered-ansi-block' });
+
+			const mode = blockMode(el, ctx);
+			if (mode === 'dark') {
+				target.style.setProperty('--ansi-viewer-bg', this.settings.darkBackground);
+				target.style.setProperty('--ansi-viewer-fg', this.settings.darkForeground);
+			} else if (mode === 'light') {
+				target.style.setProperty('--ansi-viewer-bg', this.settings.lightBackground);
+				target.style.setProperty('--ansi-viewer-fg', this.settings.lightForeground);
+			}
 
 			const innerHTML = rows.map(row => {
 				const preparsed = ansiEscapePreparser.parse(row);
@@ -32,8 +40,12 @@ export default class AnsiViewerPlugin extends Plugin {
 			target.appendChild(sanitizeHTMLToDom(innerHTML))
 		};
 
-		const isDarkBlock = (el: HTMLElement, ctx: MarkdownPostProcessorContext) => {
-			return (codeBlockArgs(el, ctx)?.includes('dark') ?? false);
+		const blockMode = (el: HTMLElement, ctx: MarkdownPostProcessorContext): 'dark' | 'light' | null => {
+			const args = codeBlockArgs(el, ctx);
+			if (!args) return null;
+			if (args.includes('dark')) return 'dark';
+			if (args.includes('light')) return 'light';
+			return null;
 		}
 
 		const codeBlockArgs = (el: HTMLElement, ctx: MarkdownPostProcessorContext) => {

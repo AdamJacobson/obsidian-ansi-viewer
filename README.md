@@ -10,9 +10,9 @@ If you are using iTerm2, highlight the desired text and use the option **Copy wi
 
 ## Features
 
-- Render ANSI formatting codes just like a terminal does!
+- Render ANSI formatting codes just like a terminal does
 - Support for _almost_ all codes
-- Dark mode
+- Configurable dark and light mode
 - Support iTerm2's weird control sequences (configurable)
 - Support for multiline formatting (configurable)
 
@@ -35,7 +35,11 @@ Text with no formatting.
 
 ![basic examples](images/basic-example-light.png)
 
-There is also a dark mode which can be enabled by adding the keyword `dark` after `ansi`:
+By default, these code blocks will match the currently selected theme as well as the dark/light setting. 
+
+You can set each code block to always be rendered using the plugins customizable dark or light theme. To do this, simply add `dark` or `light` after `ansi`. Colors can be changed from the plugin settings menu.
+
+_NOTE: The default style of the dark and light theme may not match your currently selected theme if you are not using the default one. Adjustments may be required._
 
 ~~~
 ```ansi dark
@@ -58,7 +62,5 @@ Text with no formatting.
 
 ## Planned Features
 
-- Full support for Obsidian dark mode
-- Configureable default dark/light mode
 - Configurable terminal colors
 - Support for strikethrough and blinking text

@@ -1,6 +1,6 @@
 {
 	"name": "ansi-viewer",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"description": "View ANSI formatted text in Obsidian.",
 	"main": "main.js",
 	"type": "module",

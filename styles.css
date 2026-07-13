@@ -1,4 +1,4 @@
 pre.rendered-ansi-block {
-  background-color: var(--code-background);
-  color: var(--code-normal);
+  background-color: var(--ansi-viewer-bg, var(--code-background));
+  color: var(--ansi-viewer-fg, var(--code-normal));
 }
