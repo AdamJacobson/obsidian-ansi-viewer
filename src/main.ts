@@ -1,5 +1,5 @@
 import { MarkdownPostProcessorContext, Plugin, sanitizeHTMLToDom } from 'obsidian';
-import { DEFAULT_SETTINGS, AnsiViewerSettings, AnsiViewerSettingTab } from "./settings";
+import { DEFAULT_SETTINGS, AnsiViewerSettings, AnsiViewerSettingTab, COLOR_OPTIONS } from "./settings";
 import { AnsiUp } from 'ansi_up';
 import AnsiPreparser from "./ansi_preparser";
 
@@ -23,12 +23,10 @@ export default class AnsiViewerPlugin extends Plugin {
 			const target = el.createEl('pre', { cls: 'rendered-ansi-block' });
 
 			const mode = blockMode(el, ctx);
-			if (mode === 'dark') {
-				target.style.setProperty('--ansi-viewer-bg', this.settings.darkBackground);
-				target.style.setProperty('--ansi-viewer-fg', this.settings.darkForeground);
-			} else if (mode === 'light') {
-				target.style.setProperty('--ansi-viewer-bg', this.settings.lightBackground);
-				target.style.setProperty('--ansi-viewer-fg', this.settings.lightForeground);
+			if (mode) {
+				for (const color of COLOR_OPTIONS) {
+					target.style.setProperty(color.cssVar, this.settings[color.keys[mode]]);
+				}
 			}
 
 			const innerHTML = rows.map(row => {

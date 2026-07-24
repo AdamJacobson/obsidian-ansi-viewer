@@ -15,9 +15,24 @@ export const DEFAULT_SETTINGS: AnsiViewerSettings = {
 	newLineFormattingReset: true,
 	darkBackground: '#1e1e1e',
 	darkForeground: '#d4d4d4',
-	lightBackground: '#ffffff',
+	lightBackground: '#fafafa',
 	lightForeground: '#1e1e1e',
 }
+
+export type ColorMode = 'dark' | 'light';
+
+type ColorKey = 'darkBackground' | 'darkForeground' | 'lightBackground' | 'lightForeground';
+
+export interface ColorOption {
+	name: string;
+	cssVar: string;
+	keys: Record<ColorMode, ColorKey>;
+}
+
+export const COLOR_OPTIONS: ColorOption[] = [
+	{ name: 'Background', cssVar: '--ansi-viewer-bg', keys: { dark: 'darkBackground', light: 'lightBackground' } },
+	{ name: 'Text', cssVar: '--ansi-viewer-fg', keys: { dark: 'darkForeground', light: 'lightForeground' } },
+];
 
 export class AnsiViewerSettingTab extends PluginSettingTab {
 	plugin: AnsiViewerPlugin;
@@ -60,50 +75,34 @@ export class AnsiViewerSettingTab extends PluginSettingTab {
 					await this.plugin.saveSettings();
 				}));
 
-		new Setting(containerEl)
-			.setName('Dark mode colors')
-			.setDesc('Custom colors for `ansi dark` blocks. Blocks without a keyword follow the current theme.')
-			.setHeading();
+		for (const mode of ['dark', 'light'] as ColorMode[]) {
+			const label = (mode === 'dark' ? 'Dark' : 'Light');
 
-		new Setting(containerEl)
-			.setName('Background color')
-			.addColorPicker(picker => picker
-				.setValue(this.plugin.settings.darkBackground)
-				.onChange(async (value) => {
-					this.plugin.settings.darkBackground = value;
-					await this.plugin.saveSettings();
-				}));
+			new Setting(containerEl)
+				.setName(`${label} mode colors`)
+				.setDesc(`Custom colors for \`ansi ${mode}\` blocks. Blocks without a keyword follow the current theme.`)
+				.setHeading()
+				.addExtraButton(button => button
+					.setIcon('rotate-ccw')
+					.setTooltip('Reset to default')
+					.onClick(async () => {
+						for (const color of COLOR_OPTIONS) {
+							this.plugin.settings[color.keys[mode]] = DEFAULT_SETTINGS[color.keys[mode]];
+						}
+						await this.plugin.saveSettings();
+						this.display();
+					}));
 
-		new Setting(containerEl)
-			.setName('Text color')
-			.addColorPicker(picker => picker
-				.setValue(this.plugin.settings.darkForeground)
-				.onChange(async (value) => {
-					this.plugin.settings.darkForeground = value;
-					await this.plugin.saveSettings();
-				}));
-
-		new Setting(containerEl)
-			.setName('Light mode colors')
-			.setDesc('Custom colors for `ansi light` blocks. Blocks without a keyword follow the current theme.')
-			.setHeading();
-
-		new Setting(containerEl)
-			.setName('Background color')
-			.addColorPicker(picker => picker
-				.setValue(this.plugin.settings.lightBackground)
-				.onChange(async (value) => {
-					this.plugin.settings.lightBackground = value;
-					await this.plugin.saveSettings();
-				}));
-
-		new Setting(containerEl)
-			.setName('Text color')
-			.addColorPicker(picker => picker
-				.setValue(this.plugin.settings.lightForeground)
-				.onChange(async (value) => {
-					this.plugin.settings.lightForeground = value;
-					await this.plugin.saveSettings();
-				}));
+			for (const color of COLOR_OPTIONS) {
+				new Setting(containerEl)
+					.setName(`${color.name} color`)
+					.addColorPicker(picker => picker
+						.setValue(this.plugin.settings[color.keys[mode]])
+						.onChange(async (value) => {
+							this.plugin.settings[color.keys[mode]] = value;
+							await this.plugin.saveSettings();
+						}));
+			}
+		}
 	}
 }
