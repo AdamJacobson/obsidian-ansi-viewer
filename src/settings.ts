@@ -8,6 +8,22 @@ export interface AnsiViewerSettings {
 	darkForeground: string;
 	lightBackground: string;
 	lightForeground: string;
+	darkBlack: string;
+	lightBlack: string;
+	darkRed: string;
+	lightRed: string;
+	darkGreen: string;
+	lightGreen: string;
+	darkYellow: string;
+	lightYellow: string;
+	darkBlue: string;
+	lightBlue: string;
+	darkMagenta: string;
+	lightMagenta: string;
+	darkCyan: string;
+	lightCyan: string;
+	darkWhite: string;
+	lightWhite: string;
 }
 
 export const DEFAULT_SETTINGS: AnsiViewerSettings = {
@@ -17,11 +33,37 @@ export const DEFAULT_SETTINGS: AnsiViewerSettings = {
 	darkForeground: '#d4d4d4',
 	lightBackground: '#fafafa',
 	lightForeground: '#1e1e1e',
+	darkBlack: '#000000',
+	lightBlack: '#000000',
+	darkRed: '#ff0000',
+	lightRed: '#ff0000',
+	darkGreen: '#00ff00',
+	lightGreen: '#00ff00',
+	darkYellow: '#ffff00',
+	lightYellow: '#ffff00',
+	darkBlue: '#0000ff',
+	lightBlue: '#0000ff',
+	darkMagenta: '#ff00ff',
+	lightMagenta: '#ff00ff',
+	darkCyan: '#00ffff',
+	lightCyan: '#00ffff',
+	darkWhite: '#ffffff',
+	lightWhite: '#ffffff',
 }
 
 export type ColorMode = 'dark' | 'light';
 
-type ColorKey = 'darkBackground' | 'darkForeground' | 'lightBackground' | 'lightForeground';
+type ColorKey =
+	| 'darkBackground' | 'darkForeground'
+	| 'lightBackground' | 'lightForeground'
+	| 'darkBlack' | 'lightBlack'
+	| 'darkRed' | 'lightRed'
+	| 'darkGreen' | 'lightGreen'
+	| 'darkYellow' | 'lightYellow'
+	| 'darkBlue' | 'lightBlue'
+	| 'darkMagenta' | 'lightMagenta'
+	| 'darkCyan' | 'lightCyan'
+	| 'darkWhite' | 'lightWhite';
 
 export interface ColorOption {
 	name: string;
@@ -32,6 +74,14 @@ export interface ColorOption {
 export const COLOR_OPTIONS: ColorOption[] = [
 	{ name: 'Background', cssVar: '--ansi-viewer-bg', keys: { dark: 'darkBackground', light: 'lightBackground' } },
 	{ name: 'Text', cssVar: '--ansi-viewer-fg', keys: { dark: 'darkForeground', light: 'lightForeground' } },
+	{ name: 'Black', cssVar: '--ansi-black-fg', keys: { dark: 'darkBlack', light: 'lightBlack' } },
+	{ name: 'Red', cssVar: '--ansi-red-fg', keys: { dark: 'darkRed', light: 'lightRed' } },
+	{ name: 'Green', cssVar: '--ansi-green-fg', keys: { dark: 'darkGreen', light: 'lightGreen' } },
+	{ name: 'Yellow', cssVar: '--ansi-yellow-fg', keys: { dark: 'darkYellow', light: 'lightYellow' } },
+	{ name: 'Blue', cssVar: '--ansi-blue-fg', keys: { dark: 'darkBlue', light: 'lightBlue' } },
+	{ name: 'Magenta', cssVar: '--ansi-magenta-fg', keys: { dark: 'darkMagenta', light: 'lightMagenta' } },
+	{ name: 'Cyan', cssVar: '--ansi-cyan-fg', keys: { dark: 'darkCyan', light: 'lightCyan' } },
+	{ name: 'White', cssVar: '--ansi-white-fg', keys: { dark: 'darkWhite', light: 'lightWhite' } },
 ];
 
 export class AnsiViewerSettingTab extends PluginSettingTab {

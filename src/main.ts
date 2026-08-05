@@ -18,6 +18,7 @@ export default class AnsiViewerPlugin extends Plugin {
 		const renderAnsiCodeBlock = (source: string, el: HTMLElement, ctx: MarkdownPostProcessorContext) => {
 			const ansiEscapePreparser = new AnsiPreparser(() => this.settings);
 			const ansiUp = new AnsiUp();
+			ansiUp.use_classes = true;
 
 			const rows = source.split('\n');
 			const target = el.createEl('pre', { cls: 'rendered-ansi-block' });

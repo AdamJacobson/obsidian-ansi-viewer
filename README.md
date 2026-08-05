@@ -12,7 +12,8 @@ If you are using iTerm2, highlight the desired text and use the option **Copy wi
 
 - Render ANSI formatting codes just like a terminal does
 - Support for _almost_ all codes
-- Configurable dark and light mode
+- Matches current theme by default
+- Configurable dark and light mode with custom colors
 - Support iTerm2's weird control sequences (configurable)
 - Support for multiline formatting (configurable)
 
@@ -35,7 +36,7 @@ Text with no formatting.
 
 ![basic examples](images/basic-example-light.png)
 
-By default, these code blocks will match the currently selected theme as well as the dark/light setting. 
+By default, these code blocks will match the currently selected theme as well as the dark/light setting.
 
 You can set each code block to always be rendered using the plugins customizable dark or light theme. To do this, simply add `dark` or `light` after `ansi`. Colors can be changed from the plugin settings menu.
 
@@ -58,9 +59,4 @@ Text with no formatting.
 
 - iTerm2 has an unusual way of formatting certain sequences. This plugin can account for them but those codes may not behave the same if pasted into a different terminal. You can disable this behavior by toggling the option "Correct iTerm2 formatting" (enabled by default).
 
-- Strikethrough text and blinking text are not supported. This appears to be a limitation of ansi_up, a dependency this plugin uses. I intend to submit a pull request to fix this.
-
-## Planned Features
-
-- Configurable terminal colors
-- Support for strikethrough and blinking text
+- Strikethrough text and blinking text are not supported. This appears to be a limitation of [ansi_up](https://github.com/drudru/ansi_up), a dependency this plugin uses.
