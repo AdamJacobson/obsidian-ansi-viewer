@@ -30,6 +30,9 @@ export default class AnsiViewerPlugin extends Plugin {
 				}
 			}
 
+			const brightnessOffset = mode === 'light' ? this.settings.lightBrightnessOffset : this.settings.darkBrightnessOffset;
+			target.style.setProperty('--ansi-brightness-offset', String(brightnessOffset));
+
 			const innerHTML = rows.map(row => {
 				const preparsed = ansiEscapePreparser.parse(row);
 				const html = ansiUp.ansi_to_html(preparsed);

@@ -24,6 +24,8 @@ export interface AnsiViewerSettings {
 	lightCyan: string;
 	darkWhite: string;
 	lightWhite: string;
+	darkBrightnessOffset: number;
+	lightBrightnessOffset: number;
 }
 
 export const DEFAULT_SETTINGS: AnsiViewerSettings = {
@@ -49,6 +51,8 @@ export const DEFAULT_SETTINGS: AnsiViewerSettings = {
 	lightCyan: '#00ffff',
 	darkWhite: '#ffffff',
 	lightWhite: '#ffffff',
+	darkBrightnessOffset: 25,
+	lightBrightnessOffset: 25,
 }
 
 export type ColorMode = 'dark' | 'light';
@@ -127,6 +131,7 @@ export class AnsiViewerSettingTab extends PluginSettingTab {
 
 		for (const mode of ['dark', 'light'] as ColorMode[]) {
 			const label = (mode === 'dark' ? 'Dark' : 'Light');
+			const offsetKey = (mode === 'dark' ? 'darkBrightnessOffset' : 'lightBrightnessOffset') as 'darkBrightnessOffset' | 'lightBrightnessOffset';
 
 			new Setting(containerEl)
 				.setName(`${label} mode colors`)
@@ -139,6 +144,7 @@ export class AnsiViewerSettingTab extends PluginSettingTab {
 						for (const color of COLOR_OPTIONS) {
 							this.plugin.settings[color.keys[mode]] = DEFAULT_SETTINGS[color.keys[mode]];
 						}
+						this.plugin.settings[offsetKey] = DEFAULT_SETTINGS[offsetKey];
 						await this.plugin.saveSettings();
 						this.display();
 					}));
@@ -153,6 +159,18 @@ export class AnsiViewerSettingTab extends PluginSettingTab {
 							await this.plugin.saveSettings();
 						}));
 			}
+
+			new Setting(containerEl)
+				.setName('Bright color offset')
+				.setDesc('Lightness added to a base color to produce its bright variant.')
+				.addSlider(slider => slider
+					.setLimits(0, 100, 1)
+					.setValue(this.plugin.settings[offsetKey])
+					.setDynamicTooltip()
+					.onChange(async (value) => {
+						this.plugin.settings[offsetKey] = value;
+						await this.plugin.saveSettings();
+					}));
 		}
 	}
 }

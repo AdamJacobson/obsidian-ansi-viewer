@@ -7,62 +7,126 @@ pre.rendered-ansi-block {
   color: var(--ansi-black-fg, var(--color-base-100))
 }
 
+.ansi-bright-black-fg {
+  color: hsl(from var(--ansi-black-fg, var(--color-base-100)) h s calc(l + var(--ansi-brightness-offset)));
+}
+
 .ansi-black-bg {
   background-color: var(--ansi-black-fg, var(--color-base-100))
+}
+
+.ansi-bright-black-bg {
+  background-color: hsl(from var(--ansi-black-fg, var(--color-base-100)) h s calc(l + var(--ansi-brightness-offset)));
 }
 
 .ansi-red-fg {
   color: var(--ansi-red-fg, var(--color-red))
 }
 
+.ansi-bright-red-fg {
+  color: hsl(from var(--ansi-red-fg, var(--color-red)) h s calc(l + var(--ansi-brightness-offset)));
+}
+
 .ansi-red-bg {
   background-color: var(--ansi-red-fg, var(--color-red))
+}
+
+.ansi-bright-red-bg {
+  background-color: hsl(from var(--ansi-red-fg, var(--color-red)) h s calc(l + var(--ansi-brightness-offset)));
 }
 
 .ansi-green-fg {
   color: var(--ansi-green-fg, var(--color-green))
 }
 
+.ansi-bright-green-fg {
+  color: hsl(from var(--ansi-green-fg, var(--color-green)) h s calc(l + var(--ansi-brightness-offset)));
+}
+
 .ansi-green-bg {
   background-color: var(--ansi-green-fg, var(--color-green))
+}
+
+.ansi-bright-green-bg {
+  background-color: hsl(from var(--ansi-green-fg, var(--color-green)) h s calc(l + var(--ansi-brightness-offset)));
 }
 
 .ansi-yellow-fg {
   color: var(--ansi-yellow-fg, var(--color-yellow))
 }
 
+.ansi-bright-yellow-fg {
+  color: hsl(from var(--ansi-yellow-fg, var(--color-yellow)) h s calc(l + var(--ansi-brightness-offset)));
+}
+
 .ansi-yellow-bg {
   background-color: var(--ansi-yellow-fg, var(--color-yellow))
+}
+
+.ansi-bright-yellow-bg {
+  background-color: hsl(from var(--ansi-yellow-fg, var(--color-yellow)) h s calc(l + var(--ansi-brightness-offset)));
 }
 
 .ansi-blue-fg {
   color: var(--ansi-blue-fg, var(--color-blue))
 }
 
+.ansi-bright-blue-fg {
+  color: hsl(from var(--ansi-blue-fg, var(--color-blue)) h s calc(l + var(--ansi-brightness-offset)));
+}
+
 .ansi-blue-bg {
   background-color: var(--ansi-blue-fg, var(--color-blue))
+}
+
+.ansi-bright-blue-bg {
+  background-color: hsl(from var(--ansi-blue-fg, var(--color-blue)) h s calc(l + var(--ansi-brightness-offset)));
 }
 
 .ansi-magenta-fg {
   color: var(--ansi-magenta-fg, var(--color-purple))
 }
 
+.ansi-bright-magenta-fg {
+  color: hsl(from var(--ansi-magenta-fg, var(--color-purple)) h s calc(l + var(--ansi-brightness-offset)));
+}
+
 .ansi-magenta-bg {
   background-color: var(--ansi-magenta-fg, var(--color-purple))
+}
+
+.ansi-bright-magenta-bg {
+  background-color: hsl(from var(--ansi-magenta-fg, var(--color-purple)) h s calc(l + var(--ansi-brightness-offset)));
 }
 
 .ansi-cyan-fg {
   color: var(--ansi-cyan-fg, var(--color-cyan))
 }
 
+.ansi-bright-cyan-fg {
+  color: hsl(from var(--ansi-cyan-fg, var(--color-cyan)) h s calc(l + var(--ansi-brightness-offset)));
+}
+
 .ansi-cyan-bg {
   background-color: var(--ansi-cyan-fg, var(--color-cyan))
+}
+
+.ansi-bright-cyan-bg {
+  background-color: hsl(from var(--ansi-cyan-fg, var(--color-cyan)) h s calc(l + var(--ansi-brightness-offset)));
 }
 
 .ansi-white-fg {
   color: var(--ansi-white-fg, var(--color-base-00))
 }
 
+.ansi-bright-white-fg {
+  color: hsl(from var(--ansi-white-fg, var(--color-base-00)) h s calc(l + var(--ansi-brightness-offset)));
+}
+
 .ansi-white-bg {
   background-color: var(--ansi-white-fg, var(--color-base-00))
+}
+
+.ansi-bright-white-bg {
+  background-color: hsl(from var(--ansi-white-fg, var(--color-base-00)) h s calc(l + var(--ansi-brightness-offset)));
 }
