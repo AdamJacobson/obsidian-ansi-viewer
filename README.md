@@ -14,6 +14,7 @@ If you are using iTerm2, highlight the desired text and use the option **Copy wi
 - Support for _almost_ all codes
 - Matches current theme by default
 - Configurable dark and light mode with custom colors
+- Support for strings representing the escape sequence (configurable)
 - Support iTerm2's weird control sequences (configurable)
 - Support for multiline formatting (configurable)
 
@@ -21,7 +22,7 @@ If you are using iTerm2, highlight the desired text and use the option **Copy wi
 
 Simply create a code block with the word "ansi" and paste in your code.
 
-_NOTE: Actual escape sequences may not be rendered in Obsidian. This plugin supports the use of string literals which evaluate to the escape sequence: `\x1b`, `\e`, `\033` etc_
+_NOTE: Actual escape sequences may not be rendered in Obsidian._
 
 ~~~
 ```ansi
@@ -34,24 +35,29 @@ Text with no formatting.
 ```
 ~~~
 
-![basic examples](images/basic-example-light.png)
+![Code block with Obisdian default theme in light mode](images/basic-example-light.png)
 
-By default, these code blocks will match the currently selected theme as well as the dark/light setting.
+### Literal Escape Codes
+
+By default, both real escape sequences and those represented by strings will be used to evaluate the codes. This option can be disabled in settings.
+
+You can set this behavior per block using the keywords `esc_real` to consider only actual escape sequences or `esc_string` to consider string such as "\x1b", "\e" or "\033" as escape sequences.
+
+## Themes
+
+By default, `ansi` code blocks will match the currently selected theme as well as the dark/light setting.
+
+_Code block with the RetroNotes theme and Obsidian in light mode_
+
+![Code block with the RetroNotes theme and Obsidian in light mode](images/basic-example-retro-notes-light.png)
+
+_Code block with the RetroNotes theme and Obsidian in dark mode_
+
+![Code block with the RetroNotes theme and Obsidian in dark mode](images/basic-example-retro-notes-dark.png)
 
 You can set each code block to always be rendered using the plugins customizable dark or light theme. To do this, simply add `dark` or `light` after `ansi`. Colors can be changed from the plugin settings menu.
 
-_NOTE: The default style of the dark and light theme may not match your currently selected theme if you are not using the default one. Adjustments may be required._
-
-~~~
-```ansi dark
-\x1b[0;33mYELLOW\x1b[0m \x1b[0;31mRED\x1b[0m\x1b[0m
-\x1b[0;32mGREEN\x1b[0m \x1b[0;35mMAGENTA\x1b[0m
-
-Text with no formatting.
-
-\x1b[0;32mLorem ipsum \x1b[0;33mdolor sit amet, \x1b[0;34mconsectetur adipiscing elit...\x1b[0m
-```
-~~~
+_Code block using `dark` keyword with Obsidians default theme in light mode_
 
 ![basic examples](images/basic-example-dark.png)
 

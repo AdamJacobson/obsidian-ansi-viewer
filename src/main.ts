@@ -30,11 +30,13 @@ export default class AnsiViewerPlugin extends Plugin {
 				}
 			}
 
+			const escStrings = escapeStrings(el, ctx);
+
 			const brightnessOffset = mode === 'light' ? this.settings.lightBrightnessOffset : this.settings.darkBrightnessOffset;
 			target.style.setProperty('--ansi-brightness-offset', String(brightnessOffset));
 
 			const innerHTML = rows.map(row => {
-				const preparsed = ansiEscapePreparser.parse(row);
+				const preparsed = ansiEscapePreparser.parse(row, escStrings);
 				const html = ansiUp.ansi_to_html(preparsed);
 				return html;
 			}).join('\n');
@@ -42,12 +44,38 @@ export default class AnsiViewerPlugin extends Plugin {
 			target.appendChild(sanitizeHTMLToDom(innerHTML))
 		};
 
+		/**
+		 * Returns the mode of the code block.
+		 * 
+		 * Return:
+		 *   - 'dark' if keyword 'dark' is present
+		 *   - 'light' if keyword 'light' is present
+		 *   - null otherwise
+		 */
 		const blockMode = (el: HTMLElement, ctx: MarkdownPostProcessorContext): 'dark' | 'light' | null => {
 			const args = codeBlockArgs(el, ctx);
 			if (!args) return null;
 			if (args.includes('dark')) return 'dark';
 			if (args.includes('light')) return 'light';
 			return null;
+		}
+
+		/**
+		 * Returns if the code block should consider string escape sequences as literal escape sequences
+		 * 
+		 * Return:
+		 *   - true if code block has the keyword "esc_real"
+		 *   - false if code block has the keyword "esc_string"
+		 *   - Value of the global setting `convertStringEscapeSequences` otherwise
+		 */
+		const escapeStrings = (el: HTMLElement, ctx: MarkdownPostProcessorContext): boolean => {
+			const globalSetting = this.settings.convertStringEscapeSequences;
+			const args = codeBlockArgs(el, ctx);
+			// Use global setting if block level keyword isn't present
+			if (!args) return globalSetting;
+			if (args.includes('esc_string')) return true;
+			if (args.includes('esc_real')) return false;
+			return globalSetting;
 		}
 
 		const codeBlockArgs = (el: HTMLElement, ctx: MarkdownPostProcessorContext) => {

@@ -6,14 +6,17 @@ const ESCAPE_SEQUENCE_LITERALS: string[] = ['\\x1b', '\\x1B', '\\033', '\\e', '\
 export default class AnsiPreparser {
 	constructor(private readonly getSettings: () => AnsiViewerSettings) {}
 
-	parse(ansi: string): string {
+	parse(ansi: string, escapeStrings: boolean): string {
 		if (ansi.length === 0) {
 			return ansi;
 		}
 
-		// ansi_up can only handle the real escape sequence. Replace string literal escapes with the real thing.
-		// TODO: Make this configurable or optional per code block
-		let preparsed = this.replaceEscapeSequenceLiterals(ansi);
+		let preparsed = ansi;
+
+		if (escapeStrings) {
+			// ansi_up can only handle the real escape sequence. Replace string literal escapes with the real thing if configured to
+			preparsed = this.replaceEscapeSequenceLiterals(preparsed);
+		}
 
 		if (this.getSettings().newLineFormattingReset) {
 			preparsed = this.resetFormattingOnNewLine(preparsed);

@@ -2,6 +2,7 @@ import { App, PluginSettingTab, Setting } from "obsidian";
 import AnsiViewerPlugin from "./main";
 
 export interface AnsiViewerSettings {
+	convertStringEscapeSequences: boolean;
 	correctIterm2Formatting: boolean;
 	newLineFormattingReset: boolean;
 	darkBackground: string;
@@ -29,6 +30,7 @@ export interface AnsiViewerSettings {
 }
 
 export const DEFAULT_SETTINGS: AnsiViewerSettings = {
+	convertStringEscapeSequences: true,
 	correctIterm2Formatting: true,
 	newLineFormattingReset: true,
 	darkBackground: '#1e1e1e',
@@ -106,6 +108,16 @@ export class AnsiViewerSettingTab extends PluginSettingTab {
 			// eslint-disable-next-line obsidianmd/ui/sentence-case
 			.setName('ANSI Viewer settings')
 			.setHeading();
+
+		new Setting(containerEl)
+			.setName('Convert string escape sequences to literal escape sequences')
+			.setDesc('Consider strings that would evaluate to the escape sequence as actual escape sequences. Example: "\\x1b", "\\e", "\\033" etc')
+			.addToggle(toggle => toggle
+				.setValue(this.plugin.settings.convertStringEscapeSequences)
+				.onChange(async (value) => {
+					this.plugin.settings.convertStringEscapeSequences = value;
+					await this.plugin.saveSettings();
+				}));
 
 		new Setting(containerEl)
 			// eslint-disable-next-line obsidianmd/ui/sentence-case
