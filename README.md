@@ -12,7 +12,7 @@ If you are using iTerm2, highlight the desired text and use the option **Copy wi
 
 - Render ANSI formatting codes just like a terminal does
 - Support for _almost_ all codes
-- Matches current theme by default
+- Match the current theme and all colors by default (configurable)
 - Configurable dark and light mode with custom colors
 - Support for strings representing the escape sequence (configurable)
 - Support iTerm2's weird control sequences (configurable)
@@ -39,13 +39,15 @@ Text with no formatting.
 
 ### Literal Escape Codes
 
-By default, both real escape sequences and those represented by strings will be used to evaluate the codes. This option can be disabled in settings.
+By default, both real escape sequences and those represented by strings will be used to evaluate the codes. This behavior is controlled by the **Convert string escape sequences to literal escape sequences** setting.
 
-You can set this behavior per block using the keywords `esc_real` to consider only actual escape sequences or `esc_string` to consider string such as "\x1b", "\e" or "\033" as escape sequences.
+You can set this behavior per block using the keywords `esc_real` to consider only actual escape sequences or `esc_string` to consider strings such as "\x1b", "\e" or "\033" as escape sequences.
 
 ## Themes
 
-By default, `ansi` code blocks will match the currently selected theme as well as the dark/light setting.
+The **Default theme** setting controls how ansi code blocks are displayed globally. Choose "Current Theme" to match the active Obsidian theme (default), or "ANSI Viewer Dark" / "ANSI Viewer Light" to use the plugin's customizable colors everywhere.
+
+The "Current Theme" option will have code blocks match, not only the current theme, but Obsidians dark/light mode.
 
 _Code block with the RetroNotes theme and Obsidian in light mode_
 
@@ -55,7 +57,10 @@ _Code block with the RetroNotes theme and Obsidian in dark mode_
 
 ![Code block with the RetroNotes theme and Obsidian in dark mode](images/basic-example-retro-notes-dark.png)
 
-You can set each code block to always be rendered using the plugins customizable dark or light theme. To do this, simply add `dark` or `light` after `ansi`. Colors can be changed from the plugin settings menu.
+You can override the global theme setting on a per-block basis adding the right keyword after `ansi`:
+- `theme` -> Match Obsidians current theme and dark/light mode
+- `dark` -> Use ANSI Viewers customizable dark theme
+- `light` -> Use ANSI Viewers customizable light theme
 
 _Code block using `dark` keyword with Obsidians default theme in light mode_
 

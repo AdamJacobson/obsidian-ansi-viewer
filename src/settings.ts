@@ -1,10 +1,13 @@
 import { App, PluginSettingTab, Setting } from "obsidian";
 import AnsiViewerPlugin from "./main";
 
+export type DefaultTheme = 'theme' | 'dark' | 'light';
+
 export interface AnsiViewerSettings {
 	convertStringEscapeSequences: boolean;
 	correctIterm2Formatting: boolean;
 	newLineFormattingReset: boolean;
+	defaultTheme: DefaultTheme;
 	darkBackground: string;
 	darkForeground: string;
 	lightBackground: string;
@@ -33,6 +36,7 @@ export const DEFAULT_SETTINGS: AnsiViewerSettings = {
 	convertStringEscapeSequences: true,
 	correctIterm2Formatting: true,
 	newLineFormattingReset: true,
+	defaultTheme: 'theme',
 	darkBackground: '#1e1e1e',
 	darkForeground: '#d4d4d4',
 	lightBackground: '#fafafa',
@@ -110,6 +114,22 @@ export class AnsiViewerSettingTab extends PluginSettingTab {
 			.setHeading();
 
 		new Setting(containerEl)
+			.setName('Default theme')
+			.setDesc('How `ansi` blocks are displayed when no theme keyword is present. Override per block with `dark`, `light`, or `theme` (match current theme).')
+			.addDropdown(dropdown => dropdown
+				// eslint-disable-next-line obsidianmd/ui/sentence-case
+				.addOption('theme', 'Current Theme')
+				// eslint-disable-next-line obsidianmd/ui/sentence-case
+				.addOption('dark', 'ANSI Viewer Dark')
+				// eslint-disable-next-line obsidianmd/ui/sentence-case
+				.addOption('light', 'ANSI Viewer Light')
+				.setValue(this.plugin.settings.defaultTheme)
+				.onChange(async (value) => {
+					this.plugin.settings.defaultTheme = value as DefaultTheme;
+					await this.plugin.saveSettings();
+				}));
+
+		new Setting(containerEl)
 			.setName('Convert string escape sequences to literal escape sequences')
 			.setDesc('Consider strings that would evaluate to the escape sequence as actual escape sequences. Example: "\\x1b", "\\e", "\\033" etc')
 			.addToggle(toggle => toggle
@@ -143,11 +163,11 @@ export class AnsiViewerSettingTab extends PluginSettingTab {
 
 		for (const mode of ['dark', 'light'] as ColorMode[]) {
 			const label = (mode === 'dark' ? 'Dark' : 'Light');
-			const offsetKey = (mode === 'dark' ? 'darkBrightnessOffset' : 'lightBrightnessOffset') as 'darkBrightnessOffset' | 'lightBrightnessOffset';
+			const offsetKey = (mode === 'dark' ? 'darkBrightnessOffset' : 'lightBrightnessOffset');
 
 			new Setting(containerEl)
 				.setName(`${label} mode colors`)
-				.setDesc(`Custom colors for \`ansi ${mode}\` blocks. Blocks without a keyword follow the current theme.`)
+				.setDesc(`Custom colors for \`ansi ${mode}\` blocks, and for all blocks when Default theme is set to ANSI Viewer ${label}.`)
 				.setHeading()
 				.addExtraButton(button => button
 					.setIcon('rotate-ccw')
