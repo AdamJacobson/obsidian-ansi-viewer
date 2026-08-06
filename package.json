@@ -1,7 +1,7 @@
 {
 	"name": "ansi-viewer",
-	"version": "0.1.0",
-	"description": "View ANSI formatted text in Obsidian.",
+	"version": "1.0.0",
+	"description": "Render ANSI-formatted terminal output in code blocks.",
 	"main": "main.js",
 	"type": "module",
 	"scripts": {
@@ -19,7 +19,7 @@
 		"output",
 		"color"
 	],
-	"license": "0-BSD",
+	"license": "MIT",
 	"devDependencies": {
 		"@eslint/js": "9.30.1",
 		"@types/node": "^16.11.6",
@@ -33,6 +33,6 @@
 	},
 	"dependencies": {
 		"ansi_up": "^6.0.6",
-		"obsidian": "latest"
+		"obsidian": "1.12.0"
 	}
 }

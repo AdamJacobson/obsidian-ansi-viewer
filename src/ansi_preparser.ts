@@ -47,6 +47,9 @@ export default class AnsiPreparser {
 		return this.replaceColonsInCsi(corrected);
 	}
 
+	// Start with the escape character, literal bracket and anything until the next 'm' character.
+	ansiCodeSequence = new RegExp(`${ESC}([^${ESC}m]*?)m`, 'g');
+
 	/**
 	 * Within each substring from ESC (`\x1b`) through the next `m`, remove iTerm2's extra `1` in
 	 * truecolor SGR: `38:2:1:` → `38:2:` and `48:2:1:` → `48:2:`
@@ -57,17 +60,14 @@ export default class AnsiPreparser {
 				.replace(/38:2:1:/g, '38:2:')
 				.replace(/48:2:1:/g, '48:2:');
 
-    // Start with the escape character, literal bracket and anything until the next 'm' character.
-		const colorSequence = new RegExp(`${ESC}([^${ESC}m]*?)m`, 'g');
-		return ansi.replace(colorSequence, (_full, inner: string) => ESC + stripSpuriousOne(inner) + 'm');
+		return ansi.replace(this.ansiCodeSequence, (_full, inner: string) => ESC + stripSpuriousOne(inner) + 'm');
 	}
 
-  replaceColonsInCsi(ansi: string): string {
-    const replaceColon = (inner: string) => inner.replace(/:/g, ';');
+	replaceColonsInCsi(ansi: string): string {
+		const replaceColon = (inner: string) => inner.replace(/:/g, ';');
 
-    const colorSequence = new RegExp(`${ESC}([^${ESC}m]*?)m`, 'g');
-    return ansi.replace(colorSequence, (_full, inner: string) => ESC + replaceColon(inner) + 'm');
-  }
+		return ansi.replace(this.ansiCodeSequence, (_full, inner: string) => ESC + replaceColon(inner) + 'm');
+	}
 
 	/**
 	 * iTerm2 uses codes 108 to 115 for bright background colors instead of 100 to 107
@@ -102,8 +102,6 @@ export default class AnsiPreparser {
 			return out.join(';');
 		};
 
-		// Start with the escape character, literal bracket and anything until the next 'm' character.
-		const colorSequence = new RegExp(`${ESC}([^${ESC}m]*?)m`, 'g');
-		return ansi.replace(colorSequence, (_full, inner: string) => ESC + correctOffset(inner) + 'm');
+		return ansi.replace(this.ansiCodeSequence, (_full, inner: string) => ESC + correctOffset(inner) + 'm');
 	}
 }

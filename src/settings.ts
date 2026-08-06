@@ -107,22 +107,15 @@ export class AnsiViewerSettingTab extends PluginSettingTab {
 
 		containerEl.empty();
 
-		// eslint-disable-next-line obsidianmd/settings-tab/no-problematic-settings-headings
-		new Setting(containerEl)
-			// eslint-disable-next-line obsidianmd/ui/sentence-case
-			.setName('ANSI Viewer settings')
-			.setHeading();
-
 		new Setting(containerEl)
 			.setName('Default theme')
 			.setDesc('How `ansi` blocks are displayed when no theme keyword is present. Override per block with `dark`, `light`, or `theme` (match current theme).')
 			.addDropdown(dropdown => dropdown
+				.addOption('theme', 'Current theme')
 				// eslint-disable-next-line obsidianmd/ui/sentence-case
-				.addOption('theme', 'Current Theme')
+				.addOption('dark', 'ANSI Viewer dark')
 				// eslint-disable-next-line obsidianmd/ui/sentence-case
-				.addOption('dark', 'ANSI Viewer Dark')
-				// eslint-disable-next-line obsidianmd/ui/sentence-case
-				.addOption('light', 'ANSI Viewer Light')
+				.addOption('light', 'ANSI Viewer light')
 				.setValue(this.plugin.settings.defaultTheme)
 				.onChange(async (value) => {
 					this.plugin.settings.defaultTheme = value as DefaultTheme;
@@ -131,7 +124,7 @@ export class AnsiViewerSettingTab extends PluginSettingTab {
 
 		new Setting(containerEl)
 			.setName('Convert string escape sequences to literal escape sequences')
-			.setDesc('Consider strings that would evaluate to the escape sequence as actual escape sequences. Example: "\\x1b", "\\e", "\\033" etc')
+			.setDesc('Consider strings that would evaluate to the escape sequence as actual escape sequences. Example: "\\x1b", "\\e", "\\033" etc.')
 			.addToggle(toggle => toggle
 				.setValue(this.plugin.settings.convertStringEscapeSequences)
 				.onChange(async (value) => {
@@ -143,7 +136,7 @@ export class AnsiViewerSettingTab extends PluginSettingTab {
 			// eslint-disable-next-line obsidianmd/ui/sentence-case
 			.setName('Correct iTerm2 formatting')
 			// eslint-disable-next-line obsidianmd/ui/sentence-case
-			.setDesc('Remove the extra color parameter iTerm2 inserts when you copy output with control sequences and handle use of colons instead of semicolons. Also, corrects the codes for bright background colors being offset by 8.')
+			.setDesc("Handle iTerm2's custom 24-bit color and 256-color codes which include an extra 1 as well as use colons. Also, corrects the codes for bright background colors being offset by 8.")
 			.addToggle(toggle => toggle
 				.setValue(this.plugin.settings.correctIterm2Formatting)
 				.onChange(async (value) => {
@@ -152,8 +145,8 @@ export class AnsiViewerSettingTab extends PluginSettingTab {
 				}));
 
 		new Setting(containerEl)
-			.setName('Reset formatting on new line.')
-			.setDesc('When enabled, formatting will not carry over from the previous line.')
+			.setName('Reset formatting on new line')
+			.setDesc('Consider each line of a code block as starting with a style reset.')
 			.addToggle(toggle => toggle
 				.setValue(this.plugin.settings.newLineFormattingReset)
 				.onChange(async (value) => {
@@ -167,7 +160,7 @@ export class AnsiViewerSettingTab extends PluginSettingTab {
 
 			new Setting(containerEl)
 				.setName(`${label} mode colors`)
-				.setDesc(`Custom colors for \`ansi ${mode}\` blocks, and for all blocks when Default theme is set to ANSI Viewer ${label}.`)
+				.setDesc(`Custom colors for \`ansi ${mode}\` blocks, and for all blocks when Default theme is set to ANSI Viewer ${mode}.`)
 				.setHeading()
 				.addExtraButton(button => button
 					.setIcon('rotate-ccw')

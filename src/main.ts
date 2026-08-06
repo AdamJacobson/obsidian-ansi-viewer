@@ -3,12 +3,6 @@ import { DEFAULT_SETTINGS, AnsiViewerSettings, AnsiViewerSettingTab, COLOR_OPTIO
 import { AnsiUp } from 'ansi_up';
 import AnsiPreparser from "./ansi_preparser";
 
-declare global {
-	interface Window {
-		ansiUp: AnsiUp;
-	}
-}
-
 export default class AnsiViewerPlugin extends Plugin {
 	settings: AnsiViewerSettings;
 

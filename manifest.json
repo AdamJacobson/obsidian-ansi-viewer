@@ -1,9 +1,9 @@
 {
 	"id": "ansi-viewer",
 	"name": "ANSI Viewer",
-	"version": "0.1.0",
-	"minAppVersion": "0.15.0",
-	"description": "View ANSI formatted text in Obsidian.md",
+	"version": "1.0.0",
+	"minAppVersion": "1.12.0",
+	"description": "Render ANSI-formatted terminal output in code blocks.",
 	"author": "Adam Jacobson",
 	"authorUrl": "https://github.com/adamjacobson",
 	"isDesktopOnly": false

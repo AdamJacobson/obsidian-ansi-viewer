@@ -35,7 +35,7 @@ Text with no formatting.
 ```
 ~~~
 
-![Code block with Obisdian default theme in light mode](images/basic-example-light.png)
+![Code block with Obsidian default theme in light mode](images/basic-example-light.png)
 
 ### Literal Escape Codes
 
@@ -45,7 +45,7 @@ You can set this behavior per block using the keywords `esc_real` to consider on
 
 ## Themes
 
-The **Default theme** setting controls how ansi code blocks are displayed globally. Choose "Current Theme" to match the active Obsidian theme (default), or "ANSI Viewer Dark" / "ANSI Viewer Light" to use the plugin's customizable colors everywhere.
+The **Default theme** setting controls how ansi code blocks are displayed globally. Choose "Current theme" to match the active Obsidian theme (default), or "ANSI Viewer dark" / "ANSI Viewer light" to use the plugin's customizable colors everywhere.
 
 The "Current Theme" option will have code blocks match, not only the current theme, but Obsidians dark/light mode.
 
