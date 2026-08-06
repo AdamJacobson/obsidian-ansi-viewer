@@ -59,4 +59,6 @@ Text with no formatting.
 
 - iTerm2 has an unusual way of formatting certain sequences. This plugin can account for them but those codes may not behave the same if pasted into a different terminal. You can disable this behavior by toggling the option "Correct iTerm2 formatting" (enabled by default).
 
+- iTerm2 also offsets codes used for bright background colors by +8. The option "Correct iTerm2 formatting" will also correct for this.
+
 - Strikethrough text and blinking text are not supported. This appears to be a limitation of [ansi_up](https://github.com/drudru/ansi_up), a dependency this plugin uses.

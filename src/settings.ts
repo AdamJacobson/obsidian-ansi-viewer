@@ -111,7 +111,7 @@ export class AnsiViewerSettingTab extends PluginSettingTab {
 			// eslint-disable-next-line obsidianmd/ui/sentence-case
 			.setName('Correct iTerm2 formatting')
 			// eslint-disable-next-line obsidianmd/ui/sentence-case
-			.setDesc('Remove the extra color parameter iTerm2 inserts when you copy output with control sequences and handle use of colons instead of semicolons.')
+			.setDesc('Remove the extra color parameter iTerm2 inserts when you copy output with control sequences and handle use of colons instead of semicolons. Also, corrects the codes for bright background colors being offset by 8.')
 			.addToggle(toggle => toggle
 				.setValue(this.plugin.settings.correctIterm2Formatting)
 				.onChange(async (value) => {

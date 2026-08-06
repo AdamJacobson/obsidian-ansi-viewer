@@ -39,7 +39,8 @@ export default class AnsiPreparser {
 	}
 
 	correctForIterm2Formatting(ansi: string): string {
-		const corrected = this.removeSpuriousOne(ansi);
+		let corrected = this.removeSpuriousOne(ansi);
+		corrected = this.correctBrightBackgroundOffset(corrected);
 		return this.replaceColonsInCsi(corrected);
 	}
 
@@ -64,4 +65,42 @@ export default class AnsiPreparser {
     const colorSequence = new RegExp(`${ESC}([^${ESC}m]*?)m`, 'g');
     return ansi.replace(colorSequence, (_full, inner: string) => ESC + replaceColon(inner) + 'm');
   }
+
+	/**
+	 * iTerm2 uses codes 108 to 115 for bright background colors instead of 100 to 107
+	 */
+	correctBrightBackgroundOffset(ansi: string): string {
+		const correctOffset = (inner: string) => {
+			const params = inner.split(';');
+			const out = [];
+
+			for (let i = 0; i < params.length; i++) {
+				const param = params[i];
+				const n = Number(param);
+
+				// 38 and 48 indicate the following codes are color values. Leave these unchanged.
+				if (n === 38 || n === 48) {
+					let num_codes = 0;
+					switch (params[i + 1]) {
+						case '2':
+							num_codes = 4
+							break;
+						case '5':
+							num_codes = 2
+							break;
+					}
+
+					out.push(...params.slice(i, i + 1 + num_codes));
+					i += num_codes;
+					continue;
+				}
+				out.push(n >= 108 && n <= 115 ? String(n - 8) : param);
+			}
+			return out.join(';');
+		};
+
+		// Start with the escape character, literal bracket and anything until the next 'm' character.
+		const colorSequence = new RegExp(`${ESC}([^${ESC}m]*?)m`, 'g');
+		return ansi.replace(colorSequence, (_full, inner: string) => ESC + correctOffset(inner) + 'm');
+	}
 }
