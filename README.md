@@ -1,8 +1,6 @@
 # Obsidian ANSI Viewer
 
-This is a plugin for Obsidian Notes (https://obsidian.md).
-
-When enabled, code blocks marked with the string `ansi` will be rendered according to standard ANSI formatting.
+Render ANSI-formatted terminal output in code blocks.
 
 This allows for color coded text taken directly from terminal outputs. I created this plugin specifically so that I could copy terminal output from iTerm2 and save it into my notes.
 
@@ -72,4 +70,33 @@ _Code block using `dark` keyword with Obsidians default theme in light mode_
 
 - iTerm2 also offsets codes used for bright background colors by +8. The option "Correct iTerm2 formatting" will also correct for this.
 
-- Strikethrough text and blinking text are not supported. This appears to be a limitation of [ansi_up](https://github.com/drudru/ansi_up), a dependency this plugin uses.
+- Strikethrough text and blinking text are not supported. This is a limitation of [ansi_up](https://github.com/drudru/ansi_up), a dependency this plugin uses.
+
+## Third-party licenses
+
+This plugin bundles [ansi_up](https://github.com/drudru/ansi_up), which is distributed under the MIT License:
+
+```
+The MIT License
+
+Copyright (c) 2011 github.com/drudru
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+```
