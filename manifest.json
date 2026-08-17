@@ -1,7 +1,7 @@
 {
 	"id": "ansi-viewer",
 	"name": "ANSI Viewer",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"minAppVersion": "1.12.0",
 	"description": "Render ANSI-formatted terminal output in code blocks.",
 	"author": "Adam Jacobson",

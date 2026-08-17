@@ -1,6 +1,6 @@
 {
 	"name": "ansi-viewer",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Render ANSI-formatted terminal output in code blocks.",
 	"main": "main.js",
 	"type": "module",

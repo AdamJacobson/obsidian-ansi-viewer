@@ -1,4 +1,4 @@
-# 1.0.0
+# 1.0.1
 
 First release of MVP functionality
 - Render ANSI formatted text in codeblocks with `ansi` keyword
