@@ -43,7 +43,7 @@ You can set this behavior per block using the keywords `esc_real` to consider on
 
 ## Themes
 
-The **Default theme** setting controls how ansi code blocks are displayed globally. Choose "Current theme" to match the active Obsidian theme (default), or "ANSI Viewer dark" / "ANSI Viewer light" to use the plugin's customizable colors everywhere.
+The **Default theme** setting controls how ansi code blocks are displayed globally. Choose "Current theme" to match the active Obsidian theme (default), or "Custom dark theme" / "Custom light theme" to use the plugin's customizable colors everywhere.
 
 The "Current Theme" option will have code blocks match, not only the current theme, but Obsidians dark/light mode.
 
@@ -57,8 +57,8 @@ _Code block with the RetroNotes theme and Obsidian in dark mode_
 
 You can override the global theme setting on a per-block basis adding the right keyword after `ansi`:
 - `theme` -> Match Obsidians current theme and dark/light mode
-- `dark` -> Use ANSI Viewers customizable dark theme
-- `light` -> Use ANSI Viewers customizable light theme
+- `dark` -> Use the plugin's customizable dark theme
+- `light` -> Use the plugin's customizable light theme
 
 _Code block using `dark` keyword with Obsidians default theme in light mode_
 

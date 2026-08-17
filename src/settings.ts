@@ -112,10 +112,8 @@ export class AnsiViewerSettingTab extends PluginSettingTab {
 			.setDesc('How `ansi` blocks are displayed when no theme keyword is present. Override per block with `dark`, `light`, or `theme` (match current theme).')
 			.addDropdown(dropdown => dropdown
 				.addOption('theme', 'Current theme')
-				// eslint-disable-next-line obsidianmd/ui/sentence-case
-				.addOption('dark', 'ANSI Viewer dark')
-				// eslint-disable-next-line obsidianmd/ui/sentence-case
-				.addOption('light', 'ANSI Viewer light')
+				.addOption('dark', 'Custom dark theme')
+				.addOption('light', 'Custom light theme')
 				.setValue(this.plugin.settings.defaultTheme)
 				.onChange(async (value) => {
 					this.plugin.settings.defaultTheme = value as DefaultTheme;
@@ -133,10 +131,8 @@ export class AnsiViewerSettingTab extends PluginSettingTab {
 				}));
 
 		new Setting(containerEl)
-			// eslint-disable-next-line obsidianmd/ui/sentence-case
-			.setName('Correct iTerm2 formatting')
-			// eslint-disable-next-line obsidianmd/ui/sentence-case
-			.setDesc("Handle iTerm2's custom 24-bit color and 256-color codes which include an extra 1 as well as use colons. Also, corrects the codes for bright background colors being offset by 8.")
+			.setName('Correct terminal color codes')
+			.setDesc("Handle `iTerm2`'s custom 24-bit and 256-color codes, which include an extra 1 and use colons, and fix bright background colors offset by 8.")
 			.addToggle(toggle => toggle
 				.setValue(this.plugin.settings.correctIterm2Formatting)
 				.onChange(async (value) => {
@@ -160,7 +156,7 @@ export class AnsiViewerSettingTab extends PluginSettingTab {
 
 			new Setting(containerEl)
 				.setName(`${label} mode colors`)
-				.setDesc(`Custom colors for \`ansi ${mode}\` blocks, and for all blocks when Default theme is set to ANSI Viewer ${mode}.`)
+				.setDesc(`Custom colors for \`ansi ${mode}\` blocks, and for all blocks when Default theme is set to Custom ${mode} theme.`)
 				.setHeading()
 				.addExtraButton(button => button
 					.setIcon('rotate-ccw')
