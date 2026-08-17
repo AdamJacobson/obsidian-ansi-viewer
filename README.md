@@ -6,6 +6,8 @@ This allows for color coded text taken directly from terminal outputs. I created
 
 If you are using iTerm2, highlight the desired text and use the option **Copy with Control Sequences**. Paste the result in the code block.
 
+![Gif of features being demonstrated](media/full-demo.gif)
+
 ## Features
 
 - Render ANSI formatting codes just like a terminal does
@@ -33,7 +35,7 @@ Text with no formatting.
 ```
 ~~~
 
-![Code block with Obsidian default theme in light mode](images/basic-example-light.png)
+![Code block with Obsidian default theme in light mode](media/basic-example-light.png)
 
 ### Literal Escape Codes
 
@@ -49,11 +51,11 @@ The "Current Theme" option will have code blocks match, not only the current the
 
 _Code block with the RetroNotes theme and Obsidian in light mode_
 
-![Code block with the RetroNotes theme and Obsidian in light mode](images/basic-example-retro-notes-light.png)
+![Code block with the RetroNotes theme and Obsidian in light mode](media/basic-example-retro-notes-light.png)
 
 _Code block with the RetroNotes theme and Obsidian in dark mode_
 
-![Code block with the RetroNotes theme and Obsidian in dark mode](images/basic-example-retro-notes-dark.png)
+![Code block with the RetroNotes theme and Obsidian in dark mode](media/basic-example-retro-notes-dark.png)
 
 You can override the global theme setting on a per-block basis adding the right keyword after `ansi`:
 - `theme` -> Match Obsidians current theme and dark/light mode
@@ -62,7 +64,7 @@ You can override the global theme setting on a per-block basis adding the right 
 
 _Code block using `dark` keyword with Obsidians default theme in light mode_
 
-![basic examples](images/basic-example-dark.png)
+![basic examples](media/basic-example-dark.png)
 
 ## Important Caveats
 
